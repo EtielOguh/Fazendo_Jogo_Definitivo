@@ -11,6 +11,7 @@ class Jogador:
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
         self.pocao_vida = 0
+        self.inventario = []
     
     def jogador_vivo(self):
         return self.vida > 0
@@ -47,5 +48,10 @@ class Jogador:
     def resetar_player(self):
         self.vida = self.vida_max
     
-        
+    def mostrar_atributos(self):
+        print(f'Dano do Jogador: {self.ataque}')
+        print(f'Vida do Jogador: {self.vida}')
+        print('Inventário:')
+        for i, item in enumerate(self.inventario):
+            print(f'{i}: {item.nome} (Ataque: {item.ataque})')
     
