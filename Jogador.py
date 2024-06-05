@@ -54,4 +54,12 @@ class Jogador:
         print('Inventário:')
         for i, item in enumerate(self.inventario):
             print(f'{i}: {item.nome} (Ataque: {item.ataque})')
+
+    def equipar_item(self, indice):
+        if 0 <= indice < len(self.inventario):
+            item = self.inventario[indice]
+            self.ataque += item.ataque
+            print(f'{item.nome} foi equipado!')
+        else:
+            print("Índice inválido!")
     

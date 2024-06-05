@@ -17,7 +17,7 @@ def Batalha():
         print(f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
         print('-'*20)
         while inimigo.inimigo_vivo() and jogador0.jogador_vivo():
-            acao = input('\nEscolha uma opção: \n[A] Atacar\n[F] Fugir\n[P] Usar poção \n[S] Parar o jogo\nSua escolha: ')
+            acao = input('\nEscolha uma opção: \n[A] Atacar\n[F] Fugir\n[E] Equipar item \n[S] Parar o jogo\nSua escolha: ')
             if acao in 'Aa':
                 jogador0.atacar_inimigo(inimigo)
                 if inimigo.inimigo_vivo():
@@ -36,5 +36,14 @@ def Batalha():
                 break
             elif acao in 'sS':
                 parar_jogo() #Função de parar o jogo
+            elif acao in 'Ee':
+                while True:
+                    try:
+                        indice_item = int(input("\nDigite o índice do item a ser equipado: "))
+                        jogador0.equipar_item(indice_item)
+                        jogador0.inventario.pop(indice_item)
+                        break
+                    except ValueError:
+                        print("\nEntrada inválida! Por favor, digite um número válido.")
                     
     fim_de_jogo(jogador0)
