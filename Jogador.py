@@ -12,6 +12,7 @@ class Jogador:
         self.exp_para_proximo_lvl = 50
         self.pocao_vida = 0
         self.inventario = []
+        self.mao = []
     
     def jogador_vivo(self):
         return self.vida > 0
@@ -55,11 +56,18 @@ class Jogador:
         for i, item in enumerate(self.inventario):
             print(f'{i}: {item.nome} (Ataque: {item.ataque})')
 
-    def equipar_item(self, indice):
+    def equipar_item(self, indice): #Item equipado na mão
         if 0 <= indice < len(self.inventario):
+            # Se já houver um item equipado, desequipe-o primeiro
+            if self.mao:
+                item_atual = self.mao.pop()
+                self.ataque -= item_atual.ataque
+                print(f'{item_atual.nome} foi desequipado!')
+                
+            # Equipar o novo item
             item = self.inventario[indice]
+            self.mao.append(item)
             self.ataque += item.ataque
             print(f'{item.nome} foi equipado!')
         else:
             print("Índice inválido!")
-    

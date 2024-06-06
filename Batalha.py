@@ -25,7 +25,7 @@ def Batalha():
                 if not inimigo.inimigo_vivo():
                     print(f'Você derrotou o MOB {inimigo.nome}')
                     jogador0.expeciencia_ganha(inimigo)
-                    Item_dropado = Itens.dropar_item()
+                    Item_dropado = Itens.dropar_item(jogador0)
                     Itens.adicionar_ao_inventario(jogador0, Item_dropado)
                     jogador0.mostrar_atributos()
                     if not jogador0.jogador_vivo():
