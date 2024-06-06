@@ -50,6 +50,7 @@ class Jogador:
         self.vida = self.vida_max
     
     def mostrar_atributos(self):
+        print(f'Level do Jogador: {self.level}')
         print(f'Dano do Jogador: {self.ataque}')
         print(f'Vida do Jogador: {self.vida}')
         print('Inventário:')
