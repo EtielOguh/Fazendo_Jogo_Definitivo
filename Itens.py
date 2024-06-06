@@ -1,4 +1,4 @@
-from random import randint, choice
+from random import randint, choice, random
 
 class Itens:
     
@@ -16,23 +16,30 @@ class Itens:
             Itens('Espada de Diamante', 40),
             Itens('Espada Angelical', 70)
     ]
-        if jogador.level <= 1:
-            itemDropado = choice(possiveis_itens[0:])
-        if jogador.level <= 3:
+        chance_de_drop = 0.3
+
+        if random() > chance_de_drop:
+            print('Nenhum item foi dropado.')
+            return None
+
+
+        if jogador.level >= 1:
+            itemDropado = choice(possiveis_itens[:1])
+        if jogador.level >= 3:
             itemDropado = choice(possiveis_itens[:3])
-        if jogador.level <= 5:
+        if jogador.level >=5:
             itemDropado = choice(possiveis_itens[3:4])
-        if jogador.level <= 9:
+        if jogador.level >= 10:
             itemDropado = choice(possiveis_itens[4:5])
-        else:
-            itemDropado = choice(possiveis_itens)
         
-        print(possiveis_itens)
-        print(itemDropado.nome)
         print(f'Você dropou {itemDropado.nome} with {itemDropado.ataque} damage')   
         return itemDropado
 
     def adicionar_ao_inventario(jogador, item):
-        if item not in jogador.inventario:
+        if item is None:
+            return
+        if not any(i.nome == item.nome for i in jogador.inventario):
             jogador.inventario.append(item)
             print(f'{item.nome} foi adicionado ao inventário!')
+        else:
+            print(f'{item.nome} já está no inventário.')
