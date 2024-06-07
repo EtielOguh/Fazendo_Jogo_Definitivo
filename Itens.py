@@ -16,10 +16,10 @@ class Itens:
             Itens('Espada de Diamante', 40),
             Itens('Espada Angelical', 70)
     ]
-        chance_de_drop = 0.3
+        chance_de_drop = 0.6
 
         if random() > chance_de_drop:
-            print('Nenhum item foi dropado.')
+            print('\nNenhum item foi dropado.')
             return None
 
 
@@ -32,7 +32,7 @@ class Itens:
         if jogador.level >= 10:
             itemDropado = choice(possiveis_itens[4:5])
         
-        print(f'Você dropou {itemDropado.nome} with {itemDropado.ataque} damage')   
+        print(f'\nDrop: {itemDropado.nome} with {itemDropado.ataque} damage')   
         return itemDropado
 
     def adicionar_ao_inventario(jogador, item):
@@ -43,3 +43,18 @@ class Itens:
             print(f'{item.nome} foi adicionado ao inventário!')
         else:
             print(f'{item.nome} já está no inventário.')
+
+    def ganhar_pocao(jogador):
+        jogador.pocao_vida += 1
+        print('Você recebeu uma poção!')
+
+    def usar_pocao(jogador):
+        if jogador.pocao_vida > 0:
+            jogador.pocao_vida -= 1
+            jogador.vida = min(jogador.vida + 40, jogador.vida_max)
+            print(f'{jogador.nome} usou uma poção e restaurou sua vida para {jogador.vida}.')
+        else:
+            print(f'{jogador.nome} não tem poções disponíveis.')
+    
+    def pocao_disponivel(jogador):
+        print(f'{jogador.pocao_vida} Poções restantes.')
