@@ -23,22 +23,34 @@ class Inimigo:
     
     def inimigo_escolhido(level_jogador):
         mobs = [
-            Inimigo('Goblin', 20, 8, 1),        # Nível baixo
-            Inimigo('Orc', 40, 16, 2),          # Nível médio
-            Inimigo('Troll', 60, 20, 3),        # Nível alto
-            Inimigo('Dragão', 100, 24, 4),      # Nível muito alto
-            Inimigo('Demon', 150, 28, 5),       # Extreme
-            Inimigo('Demon God', 250, 30, 6),   # Fodeu
+            Inimigo('Besouro Carniçal', 40, 8, 1), # 0
+            Inimigo('Lagarto Sombrio', 45, 10, 2), # 1
+            Inimigo('Morcego Vampírico', 50, 15, 3), # 2
+            Inimigo('Aranha de Gelo', 55, 18, 4), # 3
+            Inimigo('Corvo Infernal', 60, 20, 5), # 4
+            Inimigo('Serpente de Fogo', 65, 23, 6), # 5  
+            Inimigo('Urso Espectral', 75, 25, 7), # 6
+            Inimigo('Leão Fantasma', 80, 28, 8), # 7
+            Inimigo('Falcão Tempestuoso', 85, 30, 9), # 8 
+            Inimigo('Lobo solitário', 90, 38, 10), # 9
+            Inimigo('Gorila Mutante', 95, 40, 11), # 10
+            Inimigo('Tigre das Sombras', 100, 45, 12), # 11 
+            Inimigo('Dragão de Cristal', 125, 50, 13), # 12 
+            Inimigo('DEMON', 500, 100, 14), #13
         ]
 
-        pot_xp_mob = Inimigo('Pot/xp Mob', 50, 1, 1 )    # Mob fraco para poção
+        pot_xp_mob = Inimigo('Rato Espreitador', 50, 1, 1 )    # Mob fraco para poção
     
-        if level_jogador < 3:
-            inimigos_disponiveis = mobs[:2]  # Escolhe entre Goblin e Orc
-        elif level_jogador < 5:
-             inimigos_disponiveis = mobs[1:3]  # Escolhe entre Orc e Troll
+        if level_jogador < 2:
+            inimigos_disponiveis = mobs[:2]  # 0,1
+        elif level_jogador < 4:
+             inimigos_disponiveis = mobs[2:5]  # 2,3,4
+        elif level_jogador < 7:
+             inimigos_disponiveis = mobs[5:9] # 5,6,7,8
+        elif level_jogador < 10:
+            inimigos_disponiveis = mobs[9:13] # 9,10,11,12
         else:
-             inimigos_disponiveis = mobs[3:] # Escolhe entre Troll e Dragão
+            inimigos_disponiveis = mobs[11:14] # 11,12,13
         
         inimigos_disponiveis.append(pot_xp_mob)
 

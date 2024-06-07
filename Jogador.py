@@ -36,7 +36,7 @@ class Jogador:
 
     def ganhar_experiencia(self, exp):
         self.experiencia += exp
-        print(f"{self.nome} ganhou {exp} pontos de experiência.\nSua vida atual é de {self.vida}")
+        print(f"{self.nome} ganhou {exp} pontos de experiência!")
         if self.experiencia >= self.exp_para_proximo_lvl:
             self.subir_nivel()
             self.resetar_player()
@@ -50,11 +50,13 @@ class Jogador:
         self.vida = self.vida_max
     
     def mostrar_atributos(self):
-        print(f'Level do Jogador: {self.level}')
-        print(f'Dano do Jogador: {self.ataque}')
-        print(f'Vida do Jogador: {self.vida}')
+        print(f'Level: {self.level}', end=' ')
+        print(f'Dano: {self.ataque}', end= ' ')
+        print(f'Vida: {self.vida}')
+    
+    def mostrar_inventario(jogador):
         print('Inventário:')
-        for i, item in enumerate(self.inventario):
+        for i, item in enumerate(jogador.inventario):
             print(f'{i}: {item.nome} (Ataque: {item.ataque})')
 
     def equipar_item(self, indice): #Item equipado na mão
