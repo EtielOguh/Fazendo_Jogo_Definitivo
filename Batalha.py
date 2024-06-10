@@ -4,23 +4,24 @@ from random import randint
 from Inimigo import *
 from Itens import *
 import time
+from colorama import Fore
 
 def Batalha():
     nome_jogador = input('Digite um nome: ')
     jogador0 = Jogador(nome_jogador)
-    print(f"Seja feliz no mundo de JoHugo, {nome_jogador}!")
+    print(f"Boa jornada no JoHugo {nome_jogador}!")
 
     while jogador0.jogador_vivo():
-        inimigo = Inimigo.inimigo_escolhido(jogador0.level)
-        print('--------------------------------------------')
-        print(f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
-        print('--------------------------------------------')
+        inimigo = Inimigo.inimigo_escolhido(jogador0)
+        print(Fore.RED +'--------------------------------------------')
+        print(Fore.RED +f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
+        print(Fore.RED +'--------------------------------------------')
         while inimigo.inimigo_vivo() and jogador0.jogador_vivo():
-            print("\nEscolha uma opção:")
-            print("+-------------------------------------+")
-            print("| [A] Atacar [F] Fugir [P] Usar Poção |")
-            print("| [E] Equipar item [S] Parar o jogo   |")
-            print("+-------------------------------------+")
+            print(Fore.GREEN +"\nEscolha uma opção:")
+            print(Fore.GREEN + "+-------------------------------------------------------+")
+            print(Fore.GREEN +"| [A] Atacar [F] Fugir [P] Usar Poção [S] Parar o jogo  |")
+            print(Fore.GREEN +"|        [E] Equipar item [Z] Selcionar Zona            |")
+            print(Fore.GREEN +"+-------------------------------------------------------+")
             acao = input("Sua escolha: ")
             if acao in 'Aa':
                 while inimigo.inimigo_vivo() and jogador0.jogador_vivo():
@@ -29,11 +30,11 @@ def Batalha():
                     if inimigo.inimigo_vivo():
                         inimigo.atacar_jogador(jogador0)
                     if not inimigo.inimigo_vivo():
-                        print('-'*10)
-                        print(f'{inimigo.nome} Derrotado!')
-                        print('-'*10)
+                        print(Fore.RED +'-'*20)
+                        print(Fore.RED +f'{inimigo.nome} Derrotado!')
                         jogador0.expeciencia_ganha(inimigo)
-                        Item_dropado = Itens.dropar_item(jogador0)
+                        print(Fore.RED +'-'*20)
+                        Item_dropado = Itens.dropar_item(inimigo)
                         Itens.adicionar_ao_inventario(jogador0, Item_dropado)
                         if random() <= 0.6:
                             Itens.ganhar_pocao(jogador0)
@@ -58,6 +59,14 @@ def Batalha():
                         print("\nEntrada inválida! Por favor, digite um número válido.")
             elif acao in 'pP':
                 Itens.usar_pocao(jogador0)
-                Itens.pocao_disponivel(jogador0) 
+                Itens.pocao_disponivel(jogador0)
+            elif acao in 'zZ':
+                jogador0.selecionarZona()
+                inimigo = Inimigo.inimigo_escolhido(jogador0)
+                print(Fore.RED + '--------------------------------------------')
+                print(Fore.RED + f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
+                print(Fore.RED + '--------------------------------------------')
+            else:
+                print('Opção inválida!')
                     
     fim_de_jogo(jogador0)
