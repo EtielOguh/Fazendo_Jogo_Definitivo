@@ -36,7 +36,7 @@ def Batalha():
                         print(Fore.RED +'-'*20)
                         Item_dropado = Itens.dropar_item(inimigo)
                         Itens.adicionar_ao_inventario(jogador0, Item_dropado)
-                        if random() <= 0.6:
+                        if random() <= 0.7:
                             Itens.ganhar_pocao(jogador0)
                         jogador0.mostrar_atributos()
                     if not jogador0.jogador_vivo():
@@ -48,18 +48,27 @@ def Batalha():
             elif acao in 'sS':
                 parar_jogo() #Função de parar o jogo
             elif acao in 'Ee':
+                if len(jogador0.inventario) == 0:
+                    print(Fore.YELLOW + 'Sem itens no inventário!')
+                    break
                 while True:
                     try:
                         jogador0.mostrar_inventario()
                         indice_item = int(input("\nDigite o índice do item a ser equipado: "))
                         jogador0.equipar_item(indice_item)
                         jogador0.inventario.pop(indice_item)
+                        print(Fore.RED + '--------------------------------------------')
+                        print(Fore.RED + f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
+                        print(Fore.RED + '--------------------------------------------')
                         break
                     except ValueError:
                         print("\nEntrada inválida! Por favor, digite um número válido.")
             elif acao in 'pP':
                 Itens.usar_pocao(jogador0)
                 Itens.pocao_disponivel(jogador0)
+                print(Fore.RED + '--------------------------------------------')
+                print(Fore.RED + f'Inimigo: {inimigo.nome} Nivel {inimigo.level}')
+                print(Fore.RED + '--------------------------------------------')
             elif acao in 'zZ':
                 jogador0.selecionarZona()
                 inimigo = Inimigo.inimigo_escolhido(jogador0)

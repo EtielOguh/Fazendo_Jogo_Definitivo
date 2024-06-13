@@ -33,7 +33,7 @@ class Itens:
         elif 11 <= inimigo.level == 12:
             itemDropado = choice(possiveis_itens[4:5])  # Espada de Esmeralda
         elif inimigo.level == 13:
-            itemDropado = choice(possiveis_itens[5:7])  # Espada de Diamante ou Espada Angelical
+            itemDropado = choice(possiveis_itens[5:6])  # Espada de Diamante ou Espada Angelical
         
         print(Fore.YELLOW + f'\nDrop: {itemDropado.nome} with {itemDropado.ataque} damage')   
         return itemDropado

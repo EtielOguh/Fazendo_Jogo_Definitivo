@@ -6,9 +6,9 @@ class Jogador:
     def __init__(self,nome):
         self.nome = nome
         self.zona = 1
-        self.vida = 200
-        self.vida_max = 200
-        self.ataque = 20
+        self.vida = 100
+        self.vida_max = 100
+        self.ataque = 8
         self.level = 1
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
@@ -31,7 +31,7 @@ class Jogador:
     
     def subir_nivel(self):
         self.level += 1
-        self.exp_para_proximo_lvl *= 1.3
+        self.exp_para_proximo_lvl *= 1.5
         self.ataque += 3
         self.vida_max += 20
         print(Fore.BLUE + f"{self.nome} subiu para o nível {self.level}!")
@@ -55,7 +55,8 @@ class Jogador:
     def mostrar_atributos(self):
         print(Fore.BLACK + f'Level: {self.level}', end=' ')
         print(Fore.BLACK + f'Dano: {self.ataque}', end= ' ')
-        print(Fore.BLACK + f'Vida: {self.vida}')
+        print(Fore.BLACK + f'Vida: {self.vida}', end= ' ')
+        print(Fore.BLACK + f'Exp({self.experiencia}/{self.exp_para_proximo_lvl})')
     
     def mostrar_inventario(jogador):
         print('Inventário:')
@@ -79,6 +80,6 @@ class Jogador:
             print("Índice inválido!")
     
     def selecionarZona(jogador):
-        zona = int(input(Fore.LIGHTBLUE_EX + 'Selecione uma zona:' + '\n1: lvl 3-5 \n2: 6-8 \n4: 9-11 \n5: 12-13 \nSua escolha: '))
+        zona = int(input(Fore.LIGHTBLUE_EX + 'Selecione uma zona:' + '\n1: lvl 3-5 \n2: lvl 6-8 \n4: lvl 9-11 \n5: lvl 12-13 \nSua escolha: '))
         jogador.zona = zona
 
