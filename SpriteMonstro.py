@@ -18,21 +18,21 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.pos_x = randint(0, largura_tela - self.rect.width)
         self.pos_y = randint(0, altura_tela - self.rect.height)
         self.rect.topleft = (self.pos_x, self.pos_y)
-        self.vida_max = 200
-        self.vida_atual = self.vida_max # Pega a instancia do inimigo criado
+        self.inimigo.vida = self.inimigo.vida_max 
+        # Pega a instancia do inimigo criado
         self.respawn()
     
     def respawn(self):
         largura_tela, altura_tela = 800, 600
         self.rect.x = randint(0, largura_tela - self.rect.width)
         self.rect.y = randint(0, altura_tela - self.rect.height)
-        self.vida_atual = self.vida_max
+        self.inimigo.vida = self.inimigo.vida_max
     
     def inimigo_vivo(self):
-        return self.vida_atual > 0
+        return self.inimigo.vida > 0
     
     def update(self):
-        if self.vida_atual <= 0:
+        if self.inimigo.vida <= 0:
             self.kill()
 
     def draw (self, tela):
@@ -46,7 +46,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
         barra_y = self.rect.y
         barra_y = self.rect.y - barra_altura - 2
 
-        proporcao_vida = self.vida_atual / self.vida_max
+        proporcao_vida = self.inimigo.vida/ self.inimigo.vida_max
         if proporcao_vida > 0.5:
             cor_barra = (0, 255, 0)  # Verde
         elif proporcao_vida > 0.2:
@@ -63,7 +63,11 @@ class SpriteInimigo(pygame.sprite.Sprite):
 
 
     def receber_dano(self, dano):
-        self.vida_atual -= dano
-        if self.vida_atual < 0:
-            self.vida_atual = 0
+        self.inimigo.vida -= dano
+        if self.inimigo.vida < 0:
+            self.inimigo.vida = 0
+    
+    def atacarJogador(self, jogador_sprite):
+        if self.rect.colliderect(jogador_sprite.rect):
+            jogador_sprite.receber_dano(self.inimigo.ataque)
 

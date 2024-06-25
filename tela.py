@@ -21,7 +21,7 @@ class Tela:
 
         #Criando Jogador
         self.jogador = Jogador()
-        self.inimigo = Inimigo('Hugo', 100, 10,1)
+        self.inimigo = Inimigo('Demon', 50,5,1) #nome,vida,ataque,lvl
         
         # Criando um sprite
         self.jogadorSprite = SpriteJogador(self.jogador)
@@ -54,18 +54,24 @@ class Tela:
                     elif event.key == pygame.K_f:
                         self.jogadorSprite.iniciar_ataque()
                         self.jogadorSprite.atacar(self.inimigoSprite)
+                        self.inimigoSprite.atacarJogador(self.jogadorSprite)
             # Atualizações
             self.all_sprites.update()
 
             if not self.inimigoSprite.alive():
+                self.jogador.resetar_player()
                 self.inimigoSprite.respawn()
                 self.all_sprites.add(self.inimigoSprite)
+            
+            if not self.jogadorSprite.jogador_vivo():
+                sys.exit()
             
             # Desenho na tela
             self.screen.fill(BLACK)  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela
 
             self.inimigoSprite.draw(self.screen)
+            self.jogadorSprite.draw(self.screen)
 
             pygame.display.flip()  # atualiza a tela
 

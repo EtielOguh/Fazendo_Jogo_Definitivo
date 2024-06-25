@@ -66,4 +66,39 @@ class SpriteJogador(pygame.sprite.Sprite):
 
     def atacar(self, inimigo_sprite):
         if self.rect.colliderect(inimigo_sprite.rect):
-            inimigo_sprite.receber_dano(10)
+            inimigo_sprite.receber_dano(self.jogador.ataque)
+
+    def draw (self, tela):
+        tela.blit(self.image, self.rect.topleft)
+        self.barra_vida(tela)
+    
+    def barra_vida(self, tela):
+        barra_largura = self.rect.width
+        barra_altura = 5
+        barra_x = self.rect.x
+        barra_y = self.rect.y
+        barra_y = self.rect.y - barra_altura - 2
+
+        proporcao_vida = self.jogador.vida / self.jogador.vida_max
+        if proporcao_vida > 0.5:
+            cor_barra = (0, 255, 0)  # Verde
+        elif proporcao_vida > 0.2:
+            cor_barra = (255, 255, 0)  # Amarelo
+        else:
+            cor_barra = (255, 0, 0)  # Vermelho
+
+        preencher = (0,255,0)
+        esvaziar = (255,0,0)
+        pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, barra_largura, barra_altura))
+    
+    def receber_dano(self, dano):
+        self.jogador.vida -= dano
+        if self.jogador.vida < 0:
+            self.jogador.vida = 0
+
+    def jogador_vivo(self):
+        return self.jogador.vida > 0
+    
+    def resetar_player(self):
+        self.jogador.vida = self.jogador.vida_max
+    

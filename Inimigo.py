@@ -7,6 +7,7 @@ class Inimigo:
         self.level = level
         self.vida = vida
         self.ataque = ataque
+        self.vida_max = 200
     
     def inimigo_vivo(self):
         return self.vida > 0

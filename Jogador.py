@@ -6,9 +6,9 @@ class Jogador:
     def __init__(self):
         self.nome = 'Knight'
         self.zona = 1 
-        self.vida = 100
-        self.vida_max = 100
-        self.ataque = 8
+        self.vida = 300
+        self.vida_max = 300
+        self.ataque = 10
         self.level = 1
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
