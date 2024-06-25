@@ -53,9 +53,14 @@ class Tela:
                         self.jogadorSprite.mover_vertical(1)
                     elif event.key == pygame.K_f:
                         self.jogadorSprite.iniciar_ataque()
+                        self.jogadorSprite.atacar(self.inimigoSprite)
             # Atualizações
             self.all_sprites.update()
 
+            if not self.inimigoSprite.alive():
+                self.inimigoSprite.respawn()
+                self.all_sprites.add(self.inimigoSprite)
+            
             # Desenho na tela
             self.screen.fill(BLACK)  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela

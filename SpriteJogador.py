@@ -63,3 +63,7 @@ class SpriteJogador(pygame.sprite.Sprite):
 
     def mover_vertical(self, direcao):
         self.jogador.pos_y += direcao * self.jogador.velocidade_vertical
+
+    def atacar(self, inimigo_sprite):
+        if self.rect.colliderect(inimigo_sprite.rect):
+            inimigo_sprite.receber_dano(10)

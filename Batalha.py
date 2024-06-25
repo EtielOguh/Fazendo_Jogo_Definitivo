@@ -7,9 +7,8 @@ import time
 from colorama import Fore
 
 def Batalha():
-    nome_jogador = input('Digite um nome: ')
-    jogador0 = Jogador(nome_jogador)
-    print(f"Boa jornada no JoHugo {nome_jogador}!")
+    jogador0 = Jogador()
+    print(f"Boa jornada no JoHugo {jogador0.nome}!")
 
     while jogador0.jogador_vivo():
         inimigo = Inimigo.inimigo_escolhido(jogador0)
