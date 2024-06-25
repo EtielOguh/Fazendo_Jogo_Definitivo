@@ -22,15 +22,6 @@ class Inimigo:
         jogador.receber_dano(dano)
     
     def inimigo_escolhido(jogador):
-        """
-        Seleciona um inimigo aleatório para o jogador enfrentar em um jogo.
-
-        Args:
-            jogador: Objeto do jogador com atributo 'zona'.
-
-        Returns:
-            Objeto Inimigo selecionado aleatoriamente.
-        """
         # Lista de listas para armazenar os inimigos por zona
         inimigos_por_zona = [
             [Inimigo('Besouro Carniçal', 50, 8, 1), Inimigo('Lagarto Sombrio', 60, 10, 1), Inimigo('Rato Espreitador', 50, 1, 1)],
