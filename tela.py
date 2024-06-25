@@ -59,7 +59,8 @@ class Tela:
             self.all_sprites.update()
 
             if not self.inimigoSprite.alive():
-                self.jogador.resetar_player()
+                self.jogadorSprite.ganhar_experiencia(self.inimigo)
+                self.jogadorSprite.resetar_player()
                 self.inimigoSprite.respawn()
                 self.all_sprites.add(self.inimigoSprite)
             

@@ -1,4 +1,6 @@
 import pygame
+from Inimigo import *
+from SpriteMonstro import *
 from Jogador import *
 import os
 import time
@@ -10,17 +12,19 @@ class SpriteJogador(pygame.sprite.Sprite):
     def __init__(self,jogador):
         super().__init__()
         self.jogador = jogador
-        self.image = pygame.image.load('SpritesJogador/1.png')  # Superfície do sprite (retângulo inicial)
-        self.rect = self.image.get_rect()  # Obtém o retângulo associado à imagem
-
+        self.image = pygame.image.load('AtaqueJogador/1.png') 
+        novo_tamanho = (100 , 81)
+        self.image = pygame.transform.scale(self.image, novo_tamanho)
+        self.rect = self.image.get_rect() # Superfície do sprite (retângulo inicial)  # Obtém o retângulo associado à imagem
+        
         self.imagensAtaque= []
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/1.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/2.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/3.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/4.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/5.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/6.png'))
-        self.imagensAtaque.append(pygame.image.load('AtaqueJogador/7.png'))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/1.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/2.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/3.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/4.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/5.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/6.png'), (novo_tamanho)))
+        self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/7.png'), (novo_tamanho)))
         
         self.atacando = False
         self.indice_ataque = 0
@@ -42,7 +46,6 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.contadorAtaque += 1
 
     def iniciar_ataque(self):
-        print('Entrou aqui')
         if self.atacando == False:
             self.atacando = True
             self.indice_ataque = 0
@@ -50,7 +53,6 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.image = self.imagensAtaque[self.indice_ataque]
 
     def update(self):
-        print('Aqui Update')
         if self.atacando:
             # time.sleep(0.5)
             self.atualizar_animacao_ataque()
@@ -102,3 +104,21 @@ class SpriteJogador(pygame.sprite.Sprite):
     def resetar_player(self):
         self.jogador.vida = self.jogador.vida_max
     
+    def subir_nivel(self):
+        self.jogador.level += 1
+        self.jogador.exp_para_proximo_lvl *= 1.5
+        self.jogador.ataque += 3
+        self.jogador.vida_max += 20
+        print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
+    
+    def ganhar_experiencia(self, inimigo):
+        experiencia_recebida = 10 * inimigo.level
+        self.jogador.experiencia += experiencia_recebida
+        print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
+
+        while self.jogador.experiencia >= self.jogador.exp_para_proximo_lvl:
+            self.jogador.experiencia -= self.jogador.exp_para_proximo_lvl
+            self.subir_nivel()
+            self.resetar_player()
+            print(f"Vida: {self.jogador.vida} \nAtaque: {self.jogador.ataque}")
+
