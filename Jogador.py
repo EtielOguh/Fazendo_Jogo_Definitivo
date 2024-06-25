@@ -3,60 +3,25 @@ import Inimigo
 from colorama import Fore
 
 class Jogador:
-    def __init__(self,nome):
-        self.nome = nome
-        self.zona = 1
-        self.vida = 100
-        self.vida_max = 100
-        self.ataque = 8
+    def __init__(self):
+        self.nome = 'Knight'
+        self.zona = 1 
+        self.vida = 300
+        self.vida_max = 300
+        self.ataque = 10
         self.level = 1
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
         self.pocao_vida = 0
         self.inventario = []
         self.mao = []
-    
-    def jogador_vivo(self):
-        return self.vida > 0
-    
-    def receber_dano(self, dano):
-        self.vida -= dano
-        print(f"{self.nome} recebeu {dano} de dano. Saúde atual: {self.vida}")
-    
-    def atacar_inimigo(self, inimigo):
-        dano = randint(self.ataque -1, self.ataque + 5)
-        if dano > inimigo.vida:
-            dano = inimigo.vida
-        inimigo.receber_dano(dano)
-    
-    def subir_nivel(self):
-        self.level += 1
-        self.exp_para_proximo_lvl *= 1.5
-        self.ataque += 3
-        self.vida_max += 20
-        print(Fore.BLUE + f"{self.nome} subiu para o nível {self.level}!")
 
-    def ganhar_experiencia(self, exp):
-        self.experiencia += exp
-        print(Fore.BLUE + f"{self.nome} ganhou {exp} pontos de experiência!")
-        while self.experiencia >= self.exp_para_proximo_lvl:
-            self.experiencia -= self.exp_para_proximo_lvl
-            self.subir_nivel()
-            self.resetar_player()
-            print(f"Vida: {self.vida} \nAtaque: {self.ataque}")
-    
-    def expeciencia_ganha(jogador,inimigo):
-        experiencia_recebida = 10 * inimigo.level
-        jogador.ganhar_experiencia(experiencia_recebida)
-    
-    def resetar_player(self):
-        self.vida = self.vida_max
-    
-    def mostrar_atributos(self):
-        print(Fore.BLACK + f'Level: {self.level}', end=' ')
-        print(Fore.BLACK + f'Dano: {self.ataque}', end= ' ')
-        print(Fore.BLACK + f'Vida: {self.vida}', end= ' ')
-        print(Fore.BLACK + f'Exp({self.experiencia}/{self.exp_para_proximo_lvl})')
+        self.pos_x = 100
+        self.pos_y = 100
+
+        # Velocidades de movimento
+        self.velocidade_horizontal = 40
+        self.velocidade_vertical = 40
     
     def mostrar_inventario(jogador):
         print('Inventário:')

@@ -7,30 +7,9 @@ class Inimigo:
         self.level = level
         self.vida = vida
         self.ataque = ataque
-    
-    def inimigo_vivo(self):
-        return self.vida > 0
-
-    def receber_dano(self, dano):
-        self.vida -= dano
-        print(f"{self.nome} recebeu {dano} de dano. Saúde atual: {self.vida}")
-
-    def atacar_jogador(self, jogador):
-        dano = randint(self.ataque - 1, self.ataque + 5)
-        if dano > jogador.vida:
-            dano = jogador.vida
-        jogador.receber_dano(dano)
+        self.vida_max = 10
     
     def inimigo_escolhido(jogador):
-        """
-        Seleciona um inimigo aleatório para o jogador enfrentar em um jogo.
-
-        Args:
-            jogador: Objeto do jogador com atributo 'zona'.
-
-        Returns:
-            Objeto Inimigo selecionado aleatoriamente.
-        """
         # Lista de listas para armazenar os inimigos por zona
         inimigos_por_zona = [
             [Inimigo('Besouro Carniçal', 50, 8, 1), Inimigo('Lagarto Sombrio', 60, 10, 1), Inimigo('Rato Espreitador', 50, 1, 1)],
