@@ -4,6 +4,7 @@ from SpriteMonstro import *
 from Jogador import *
 import os
 import time
+import math
 
 BLACK = (0, 0, 0)
 AZUL = (0,0,255)
@@ -16,7 +17,8 @@ class SpriteJogador(pygame.sprite.Sprite):
         novo_tamanho = (100 , 81)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect() # Superfície do sprite (retângulo inicial)  # Obtém o retângulo associado à imagem
-        
+        self.pos_x_anterior = self.rect.x  # Variável para armazenar posição anterior
+        self.pos_y_anterior = self.rect.y  # Variável para armazenar posição anterior
         self.imagensAtaque= []
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/1.png'), (novo_tamanho)))
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/2.png'), (novo_tamanho)))
@@ -66,10 +68,6 @@ class SpriteJogador(pygame.sprite.Sprite):
     def mover_vertical(self, direcao):
         self.jogador.pos_y += direcao * self.jogador.velocidade_vertical
 
-    def atacar(self, inimigo_sprite):
-        if self.rect.colliderect(inimigo_sprite.rect):
-            inimigo_sprite.receber_dano(self.jogador.ataque)
-
     def draw (self, tela):
         tela.blit(self.image, self.rect.topleft)
         self.barra_vida(tela)
@@ -78,21 +76,19 @@ class SpriteJogador(pygame.sprite.Sprite):
         barra_largura = self.rect.width
         barra_altura = 5
         barra_x = self.rect.x
-        barra_y = self.rect.y
         barra_y = self.rect.y - barra_altura - 2
 
         proporcao_vida = self.jogador.vida / self.jogador.vida_max
-        if proporcao_vida > 0.5:
-            cor_barra = (0, 255, 0)  # Verde
-        elif proporcao_vida > 0.2:
-            cor_barra = (255, 255, 0)  # Amarelo
-        else:
-            cor_barra = (255, 0, 0)  # Vermelho
+        largura_vida = barra_largura * proporcao_vida
 
-        preencher = (0,255,0)
-        esvaziar = (255,0,0)
-        pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, barra_largura, barra_altura))
-    
+        cor_barra = (0, 255, 0)  # Verde
+        cor_fundo = (255, 0, 0)  # Vermelho
+
+        # Desenha a parte da vida preenchida
+        pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, largura_vida, barra_altura))
+        # Desenha a parte da vida vazia
+        pygame.draw.rect(tela, cor_fundo, (barra_x + largura_vida, barra_y, barra_largura - largura_vida, barra_altura))
+
     def receber_dano(self, dano):
         self.jogador.vida -= dano
         if self.jogador.vida < 0:
@@ -122,3 +118,22 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.resetar_player()
             print(f"Vida: {self.jogador.vida} \nAtaque: {self.jogador.ataque}")
 
+    def atacar(self, inimigo_sprite, distancia_ataque):
+        if self.checar_proximidade(inimigo_sprite, distancia_ataque):
+            inimigo_sprite.receber_dano(self.jogador.ataque)
+    
+    def checar_proximidade(self, outro_sprite, distancia_ataque):
+        distancia = math.sqrt((self.rect.centerx - outro_sprite.rect.centerx) ** 2 + (self.rect.centery - outro_sprite.rect.centery) ** 2)
+        return distancia <= distancia_ataque
+
+    def ganhar_pocao(self):
+        self.jogador.pocao_vida += 1
+        print(Fore.GREEN + 'Você recebeu uma poção!')
+    
+    def usar_pocao(self):
+        if self.jogador.pocao_vida > 0:
+            self.jogador.pocao_vida -= 1
+            self.jogador.vida = min(self.jogador.vida + 40, self.jogador.vida_max)
+            print(f'{self.jogador.nome} usou uma poção e restaurou sua vida para {self.jogador.vida}.')
+        else:
+            print(f'{self.jogador.nome} não tem poções disponíveis.')

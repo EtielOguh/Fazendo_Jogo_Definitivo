@@ -2,12 +2,12 @@ from random import randint, choice
 from Jogador import *
 
 class Inimigo:
-    def __init__(self, nome, vida, ataque, level):
-        self.nome = nome
-        self.level = level
-        self.vida = vida
-        self.ataque = ataque
-        self.vida_max = 10
+    def __init__(self):
+        self.nome = 'Demon'
+        self.level = 2
+        self.vida = 200
+        self.ataque = 5
+        self.vida_max = 200
     
     def inimigo_escolhido(jogador):
         # Lista de listas para armazenar os inimigos por zona

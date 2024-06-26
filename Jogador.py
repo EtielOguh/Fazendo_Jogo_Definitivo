@@ -8,7 +8,7 @@ class Jogador:
         self.zona = 1 
         self.vida = 300
         self.vida_max = 300
-        self.ataque = 10
+        self.ataque = 30
         self.level = 1
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
@@ -16,8 +16,8 @@ class Jogador:
         self.inventario = []
         self.mao = []
 
-        self.pos_x = 100
-        self.pos_y = 100
+        self.pos_x = 650
+        self.pos_y = 500
 
         # Velocidades de movimento
         self.velocidade_horizontal = 40
