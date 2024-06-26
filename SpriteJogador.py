@@ -5,6 +5,7 @@ from Jogador import *
 import os
 import time
 import math
+import random
 
 BLACK = (0, 0, 0)
 AZUL = (0,0,255)
@@ -27,7 +28,8 @@ class SpriteJogador(pygame.sprite.Sprite):
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/5.png'), (novo_tamanho)))
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/6.png'), (novo_tamanho)))
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/7.png'), (novo_tamanho)))
-        
+        self.vel_x = 0
+        self.vel_y = 0
         self.atacando = False
         self.indice_ataque = 0
         self.duracaoAtaque = 1
@@ -61,6 +63,8 @@ class SpriteJogador(pygame.sprite.Sprite):
         # Atualização da posição do sprite baseada na posição do jogador
         self.rect.centerx = self.jogador.pos_x  # Definir posição x do jogador na tela
         self.rect.centery = self.jogador.pos_y  # Definir posição y do jogador na tela
+        self.rect.x += self.vel_x
+        self.rect.y += self.vel_y
 
     def mover_horizontal(self, direcao):
         self.jogador.pos_x += direcao * self.jogador.velocidade_horizontal
@@ -127,8 +131,13 @@ class SpriteJogador(pygame.sprite.Sprite):
         return distancia <= distancia_ataque
 
     def ganhar_pocao(self):
-        self.jogador.pocao_vida += 1
-        print(Fore.GREEN + 'Você recebeu uma poção!')
+        chance_de_drop = 0.50
+        if random.random() > chance_de_drop:
+            print(Fore.RED + '\nNenhum item foi dropado.')
+            return None
+        else:
+            self.jogador.pocao_vida += 1
+            print(Fore.GREEN + 'Você recebeu uma poção!')
     
     def usar_pocao(self):
         if self.jogador.pocao_vida > 0:
