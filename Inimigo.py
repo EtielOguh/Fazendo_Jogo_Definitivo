@@ -4,7 +4,7 @@ from Jogador import *
 class Inimigo:
     def __init__(self):
         self.nome = 'Demon'
-        self.level = 1
+        self.level = 2
         self.vida = 200
         self.ataque = 5
         self.vida_max = 200

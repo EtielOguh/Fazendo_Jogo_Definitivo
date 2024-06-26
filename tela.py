@@ -58,6 +58,8 @@ class Tela:
                         distancia_ataque = 150  # Defina a distância de ataque adequada
                         self.jogadorSprite.iniciar_ataque()
                         self.jogadorSprite.atacar(self.inimigoSprite, distancia_ataque)
+                    elif event.key == pygame.K_d:
+                        self.jogadorSprite.usar_pocao()
 
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
@@ -65,8 +67,8 @@ class Tela:
 
             if not self.inimigoSprite.alive():
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
-                self.jogadorSprite.resetar_player()
                 self.inimigoSprite.respawn()
+                self.jogadorSprite.ganhar_pocao()
                 self.all_sprites.add(self.inimigoSprite)
             
             if not self.jogadorSprite.jogador_vivo():
@@ -104,8 +106,10 @@ class Tela:
         texto_LVL = f"LVL: {self.jogador.level}"
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
         texto_telalvl = self.fonte.render(texto_LVL, True, WHITE)
+        #texto_telapot = self.fonte.render(texto_LVL, True, WHITE)
         self.screen.blit(texto_surface, (20, 30))
         self.screen.blit(texto_telalvl, (125, 18))
+        #self.screen.blit(texto_telapot, (125, 18))
 
 if __name__ == "__main__":
     jogo = Tela()

@@ -22,6 +22,8 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.distancia_minima = 90
         self.velocidade = 2
         self.inimigo.vida = self.inimigo.vida_max
+        self.ultimo_ataque = time.time()  # Tempo do último ataque
+        self.intervalo_ataque = 0.5  # Intervalo entre ataques em segundos
         # Pega a instancia do inimigo criado
         self.respawn()
     
@@ -80,8 +82,10 @@ class SpriteInimigo(pygame.sprite.Sprite):
             self.inimigo.vida = 0
     
     def atacarJogador(self, jogador_sprite, distancia_ataque):
-        if self.checar_proximidade(jogador_sprite, distancia_ataque):
+        agora = time.time()
+        if self.checar_proximidade(jogador_sprite, distancia_ataque) and agora - self.ultimo_ataque >= self.intervalo_ataque:
             jogador_sprite.receber_dano(self.inimigo.ataque)
+            self.ultimo_ataque = agora
 
     def checar_proximidade(self, outro_sprite, distancia_ataque):
         distancia = math.sqrt((self.rect.centerx - outro_sprite.rect.centerx) ** 2 + (self.rect.centery - outro_sprite.rect.centery) ** 2)
@@ -95,5 +99,5 @@ class SpriteInimigo(pygame.sprite.Sprite):
             self.rect.x += dx * self.velocidade
             self.rect.y += dy * self.velocidade
         if self.checar_proximidade(jogador_sprite, distancia_ataque):
-            time.sleep()
-            jogador_sprite.receber_dano(self.inimigo.ataque)
+            self.atacarJogador(jogador_sprite, distancia_ataque)
+    

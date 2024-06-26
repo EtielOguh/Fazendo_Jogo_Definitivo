@@ -126,3 +126,14 @@ class SpriteJogador(pygame.sprite.Sprite):
         distancia = math.sqrt((self.rect.centerx - outro_sprite.rect.centerx) ** 2 + (self.rect.centery - outro_sprite.rect.centery) ** 2)
         return distancia <= distancia_ataque
 
+    def ganhar_pocao(self):
+        self.jogador.pocao_vida += 1
+        print(Fore.GREEN + 'Você recebeu uma poção!')
+    
+    def usar_pocao(self):
+        if self.jogador.pocao_vida > 0:
+            self.jogador.pocao_vida -= 1
+            self.jogador.vida = min(self.jogador.vida + 40, self.jogador.vida_max)
+            print(f'{self.jogador.nome} usou uma poção e restaurou sua vida para {self.jogador.vida}.')
+        else:
+            print(f'{self.jogador.nome} não tem poções disponíveis.')
