@@ -59,6 +59,7 @@ class Tela:
                         self.jogadorSprite.iniciar_ataque()
                         self.jogadorSprite.atacar(self.inimigoSprite, distancia_ataque)
 
+            self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
             self.all_sprites.update()
 
@@ -82,7 +83,7 @@ class Tela:
 
             pygame.display.flip()  # atualiza a tela
 
-            clock.tick(20)
+            clock.tick(60)
 
         pygame.quit()
         sys.exit()
@@ -100,8 +101,11 @@ class Tela:
 
         # Desenha o texto indicando a experiência atual e necessária para o próximo nível
         texto_exp = f"XP: {self.jogador.experiencia}/{self.jogador.exp_para_proximo_lvl}"
+        texto_LVL = f"LVL: {self.jogador.level}"
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
+        texto_telalvl = self.fonte.render(texto_LVL, True, WHITE)
         self.screen.blit(texto_surface, (20, 30))
+        self.screen.blit(texto_telalvl, (125, 18))
 
 if __name__ == "__main__":
     jogo = Tela()

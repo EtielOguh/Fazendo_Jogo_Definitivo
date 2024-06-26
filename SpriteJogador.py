@@ -68,10 +68,6 @@ class SpriteJogador(pygame.sprite.Sprite):
     def mover_vertical(self, direcao):
         self.jogador.pos_y += direcao * self.jogador.velocidade_vertical
 
-    def atacar(self, inimigo_sprite, distancia_ataque):
-        if self.checar_proximidade(inimigo_sprite, distancia_ataque):
-            inimigo_sprite.receber_dano(self.jogador.ataque)
-
     def draw (self, tela):
         tela.blit(self.image, self.rect.topleft)
         self.barra_vida(tela)
@@ -80,21 +76,19 @@ class SpriteJogador(pygame.sprite.Sprite):
         barra_largura = self.rect.width
         barra_altura = 5
         barra_x = self.rect.x
-        barra_y = self.rect.y
         barra_y = self.rect.y - barra_altura - 2
 
         proporcao_vida = self.jogador.vida / self.jogador.vida_max
-        if proporcao_vida > 0.5:
-            cor_barra = (0, 255, 0)  # Verde
-        elif proporcao_vida > 0.2:
-            cor_barra = (255, 255, 0)  # Amarelo
-        else:
-            cor_barra = (255, 0, 0)  # Vermelho
+        largura_vida = barra_largura * proporcao_vida
 
-        preencher = (0,255,0)
-        esvaziar = (255,0,0)
-        pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, barra_largura, barra_altura))
-    
+        cor_barra = (0, 255, 0)  # Verde
+        cor_fundo = (255, 0, 0)  # Vermelho
+
+        # Desenha a parte da vida preenchida
+        pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, largura_vida, barra_altura))
+        # Desenha a parte da vida vazia
+        pygame.draw.rect(tela, cor_fundo, (barra_x + largura_vida, barra_y, barra_largura - largura_vida, barra_altura))
+
     def receber_dano(self, dano):
         self.jogador.vida -= dano
         if self.jogador.vida < 0:
@@ -123,6 +117,10 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.subir_nivel()
             self.resetar_player()
             print(f"Vida: {self.jogador.vida} \nAtaque: {self.jogador.ataque}")
+
+    def atacar(self, inimigo_sprite, distancia_ataque):
+        if self.checar_proximidade(inimigo_sprite, distancia_ataque):
+            inimigo_sprite.receber_dano(self.jogador.ataque)
     
     def checar_proximidade(self, outro_sprite, distancia_ataque):
         distancia = math.sqrt((self.rect.centerx - outro_sprite.rect.centerx) ** 2 + (self.rect.centery - outro_sprite.rect.centery) ** 2)
