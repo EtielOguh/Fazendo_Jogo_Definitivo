@@ -4,6 +4,7 @@ from SpriteMonstro import *
 from Jogador import *
 import os
 import time
+import math
 
 BLACK = (0, 0, 0)
 AZUL = (0,0,255)
@@ -16,7 +17,8 @@ class SpriteJogador(pygame.sprite.Sprite):
         novo_tamanho = (100 , 81)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect() # Superfície do sprite (retângulo inicial)  # Obtém o retângulo associado à imagem
-        
+        self.pos_x_anterior = self.rect.x  # Variável para armazenar posição anterior
+        self.pos_y_anterior = self.rect.y  # Variável para armazenar posição anterior
         self.imagensAtaque= []
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/1.png'), (novo_tamanho)))
         self.imagensAtaque.append(pygame.transform.scale(pygame.image.load('AtaqueJogador/2.png'), (novo_tamanho)))
@@ -66,8 +68,8 @@ class SpriteJogador(pygame.sprite.Sprite):
     def mover_vertical(self, direcao):
         self.jogador.pos_y += direcao * self.jogador.velocidade_vertical
 
-    def atacar(self, inimigo_sprite):
-        if self.rect.colliderect(inimigo_sprite.rect):
+    def atacar(self, inimigo_sprite, distancia_ataque):
+        if self.checar_proximidade(inimigo_sprite, distancia_ataque):
             inimigo_sprite.receber_dano(self.jogador.ataque)
 
     def draw (self, tela):
@@ -121,4 +123,8 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.subir_nivel()
             self.resetar_player()
             print(f"Vida: {self.jogador.vida} \nAtaque: {self.jogador.ataque}")
+    
+    def checar_proximidade(self, outro_sprite, distancia_ataque):
+        distancia = math.sqrt((self.rect.centerx - outro_sprite.rect.centerx) ** 2 + (self.rect.centery - outro_sprite.rect.centery) ** 2)
+        return distancia <= distancia_ataque
 
