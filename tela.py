@@ -8,6 +8,7 @@ from SpriteMonstro import *
 # Definição de cores
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+BLUE = (0,0,255)
 
 class Tela:
     def __init__(self):
@@ -31,6 +32,8 @@ class Tela:
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.jogadorSprite, self.inimigoSprite)
         
+        #Fonte
+        self.fonte = pygame.font.SysFont(None, 24)
 
     def Run(self):
         # Loop principal do jogo
@@ -71,6 +74,8 @@ class Tela:
             self.screen.fill(BLACK)  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela
 
+            self.desenhar_barra_experiencia()
+
             self.inimigoSprite.draw(self.screen)
             self.jogadorSprite.draw(self.screen)
 
@@ -80,6 +85,22 @@ class Tela:
 
         pygame.quit()
         sys.exit()
+
+    def desenhar_barra_experiencia(self):
+        # Calcula a largura da barra de experiência proporcional à experiência atual do jogador
+        largura_barra = 400
+        proporcao_experiencia = self.jogador.experiencia / self.jogador.exp_para_proximo_lvl
+        largura_atual = int(largura_barra * proporcao_experiencia)
+
+        # Desenha a barra de fundo
+        pygame.draw.rect(self.screen, WHITE, (50, 50, largura_barra, 20))
+        # Desenha a barra de experiência atual
+        pygame.draw.rect(self.screen, BLUE, (50, 50, largura_atual, 20))
+
+        # Desenha o texto indicando a experiência atual e necessária para o próximo nível
+        texto_exp = f"Experiência: {self.jogador.experiencia}/{self.jogador.exp_para_proximo_lvl}"
+        texto_surface = self.fonte.render(texto_exp, True, WHITE)
+        self.screen.blit(texto_surface, (50, 80))
 
 if __name__ == "__main__":
     jogo = Tela()
