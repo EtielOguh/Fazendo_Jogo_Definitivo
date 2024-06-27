@@ -4,10 +4,11 @@ from colorama import Fore
 
 class Jogador:
     def __init__(self):
+        #Informações jogador
         self.nome = 'Knight'
         self.zona = 1 
-        self.vida = 300
-        self.vida_max = 300
+        self.vida = 200
+        self.vida_max = 200
         self.ataque = 30
         self.level = 1
         self.experiencia = 0
@@ -15,10 +16,9 @@ class Jogador:
         self.pocao_vida = 0
         self.inventario = []
         self.mao = []
-
+        #Posição inicial
         self.pos_x = 650
         self.pos_y = 500
-
         # Velocidades de movimento
         self.velocidade_horizontal = 40
         self.velocidade_vertical = 40

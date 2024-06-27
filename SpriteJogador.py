@@ -9,6 +9,8 @@ import random
 
 BLACK = (0, 0, 0)
 AZUL = (0,0,255)
+VERDE = (0,255,0)
+VERMELHO = (255,0,0)
 
 class SpriteJogador(pygame.sprite.Sprite):
     def __init__(self,jogador):
@@ -34,6 +36,8 @@ class SpriteJogador(pygame.sprite.Sprite):
         self.indice_ataque = 0
         self.duracaoAtaque = 1
         self.contadorAtaque = 0
+        self.dano_recebido = 0
+        self.tempo_dano = 0
     
     def atualizar_animacao_ataque(self):
         if self.contadorAtaque >= self.duracaoAtaque:
@@ -81,22 +85,19 @@ class SpriteJogador(pygame.sprite.Sprite):
         barra_altura = 5
         barra_x = self.rect.x
         barra_y = self.rect.y - barra_altura - 2
-
         proporcao_vida = self.jogador.vida / self.jogador.vida_max
         largura_vida = barra_largura * proporcao_vida
-
-        cor_barra = (0, 255, 0)  # Verde
-        cor_fundo = (255, 0, 0)  # Vermelho
-
-        # Desenha a parte da vida preenchida
+        cor_barra = VERDE
+        cor_fundo = VERMELHO  
         pygame.draw.rect(tela, cor_barra, (barra_x, barra_y, largura_vida, barra_altura))
-        # Desenha a parte da vida vazia
         pygame.draw.rect(tela, cor_fundo, (barra_x + largura_vida, barra_y, barra_largura - largura_vida, barra_altura))
 
     def receber_dano(self, dano):
         self.jogador.vida -= dano
         if self.jogador.vida < 0:
             self.jogador.vida = 0
+        self.dano_recebido = dano
+        self.tempo_dano = 30  # número de frames para exibir o dano
 
     def jogador_vivo(self):
         return self.jogador.vida > 0
@@ -146,3 +147,11 @@ class SpriteJogador(pygame.sprite.Sprite):
             print(f'{self.jogador.nome} usou uma poção e restaurou sua vida para {self.jogador.vida}.')
         else:
             print(f'{self.jogador.nome} não tem poções disponíveis.')
+
+    def exibir_dano(self, tela):
+        if self.tempo_dano > 0:
+            texto_dano = f"-{self.dano_recebido}"
+            fonte = pygame.font.SysFont(None, 24)
+            texto_surface = fonte.render(texto_dano, True, (VERMELHO))
+            tela.blit(texto_surface, (self.rect.x, self.rect.y - 30))
+            self.tempo_dano -= 3

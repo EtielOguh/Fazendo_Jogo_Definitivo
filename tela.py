@@ -79,6 +79,9 @@ class Tela:
             self.screen.fill(BLACK)  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela
 
+            self.jogadorSprite.exibir_dano(self.screen)
+            self.inimigoSprite.exibir_dano(self.screen)
+
             self.desenhar_barra_experiencia()
 
             self.inimigoSprite.draw(self.screen)
