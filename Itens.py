@@ -46,18 +46,3 @@ class Itens:
             print(Fore.YELLOW + f'{item.nome} foi adicionado ao inventário!')
         else:
             print(Fore.RED + f'{item.nome} já está no inventário.')
-
-    def ganhar_pocao(jogador):
-        jogador.pocao_vida += 1
-        print(Fore.GREEN + 'Você recebeu uma poção!')
-
-    def usar_pocao(jogador):
-        if jogador.pocao_vida > 0:
-            jogador.pocao_vida -= 1
-            jogador.vida = min(jogador.vida + 40, jogador.vida_max)
-            print(f'{jogador.nome} usou uma poção e restaurou sua vida para {jogador.vida}.')
-        else:
-            print(f'{jogador.nome} não tem poções disponíveis.')
-    
-    def pocao_disponivel(jogador):
-        print(f'{jogador.pocao_vida} Poções restantes.')

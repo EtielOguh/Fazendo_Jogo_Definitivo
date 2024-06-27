@@ -34,6 +34,7 @@ class Tela:
         
         #Fonte
         self.fonte = pygame.font.SysFont(None, 18)
+        self.fonte2 = pygame.font.SysFont(None, 30)
 
     def Run(self):
         # Loop principal do jogo
@@ -78,6 +79,9 @@ class Tela:
             self.screen.fill(BLACK)  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela
 
+            self.jogadorSprite.exibir_dano(self.screen)
+            self.inimigoSprite.exibir_dano(self.screen)
+
             self.desenhar_barra_experiencia()
 
             self.inimigoSprite.draw(self.screen)
@@ -104,12 +108,13 @@ class Tela:
         # Desenha o texto indicando a experiência atual e necessária para o próximo nível
         texto_exp = f"XP: {self.jogador.experiencia}/{self.jogador.exp_para_proximo_lvl}"
         texto_LVL = f"LVL: {self.jogador.level}"
+        texto_pot = f"POT: {self.jogador.pocao_vida}"
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
         texto_telalvl = self.fonte.render(texto_LVL, True, WHITE)
-        #texto_telapot = self.fonte.render(texto_LVL, True, WHITE)
+        texto_telapot = self.fonte2.render(texto_pot, True, WHITE)
         self.screen.blit(texto_surface, (20, 30))
         self.screen.blit(texto_telalvl, (125, 18))
-        #self.screen.blit(texto_telapot, (125, 18))
+        self.screen.blit(texto_telapot, (700, 18))
 
 if __name__ == "__main__":
     jogo = Tela()
