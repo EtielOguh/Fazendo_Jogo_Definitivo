@@ -2,8 +2,9 @@ import pygame
 import sys
 from SpriteJogador import *
 from Jogador import *
-from Inimigo import *
 from SpriteMonstro import *
+from Botao import *
+from Inimigo import *
 
 # Definição de cores
 BLACK = (0, 0, 0)
@@ -14,27 +15,25 @@ class Tela:
     def __init__(self):
         # Inicialização do Pygame
         pygame.init()
-
         # Configuração da tela
         self.largura, self.altura = 800, 600
         self.screen = pygame.display.set_mode((self.largura, self.altura))
         pygame.display.set_caption("Jogo")
-
         #Criando Jogador
         self.jogador = Jogador()
         self.inimigo = Inimigo() #nome,vida,ataque,lvl
-        
         # Criando um sprite
         self.inimigoSprite = SpriteInimigo(self.inimigo)
         self.jogadorSprite = SpriteJogador(self.jogador)
-
         # Criando um grupo de sprites e adicionando o sprite criado
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.jogadorSprite, self.inimigoSprite)
-        
         #Fonte
         self.fonte = pygame.font.SysFont(None, 18)
         self.fonte2 = pygame.font.SysFont(None, 30)
+        fonte_botao = pygame.font.SysFont(None, 36) 
+        # Botões
+        self.botao = Botao(300, 500, 200, 50, "Usar Poção", BRANCO, CINZA, fonte_botao)
 
     def Run(self):
         # Loop principal do jogo
@@ -61,6 +60,9 @@ class Tela:
                         self.jogadorSprite.atacar(self.inimigoSprite, distancia_ataque)
                     elif event.key == pygame.K_d:
                         self.jogadorSprite.usar_pocao()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.botao.foi_clicado(event.pos):
+                        self.jogadorSprite.usar_pocao()  # Verifica se o botão foi clicado
 
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
@@ -87,6 +89,8 @@ class Tela:
             self.inimigoSprite.draw(self.screen)
             self.jogadorSprite.draw(self.screen)
 
+            self.botao.desenhar(self.screen)
+
             pygame.display.flip()  # atualiza a tela
 
             clock.tick(60)
@@ -106,7 +110,7 @@ class Tela:
         pygame.draw.rect(self.screen, BLUE, (20, 20, largura_atual, 5))
 
         # Desenha o texto indicando a experiência atual e necessária para o próximo nível
-        texto_exp = f"XP: {self.jogador.experiencia}/{self.jogador.exp_para_proximo_lvl}"
+        texto_exp = f"XP: {self.jogador.experiencia:.1f}/{self.jogador.exp_para_proximo_lvl:.1f}"
         texto_LVL = f"LVL: {self.jogador.level}"
         texto_pot = f"POT: {self.jogador.pocao_vida}"
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
