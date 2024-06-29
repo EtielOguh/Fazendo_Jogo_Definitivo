@@ -31,11 +31,13 @@ class Tela:
         #Fonte
         self.fonte = pygame.font.SysFont(None, 18)
         self.fonte2 = pygame.font.SysFont(None, 30)
-        fonte_botao = pygame.font.SysFont(None, 36) 
+        fonte_botao = pygame.font.SysFont(None, 20) 
         # Botões
-        self.botao = Botao(300, 500, 200, 50, "Usar Poção", BRANCO, CINZA, fonte_botao)
+        self.botao = Botao(130, 550, 80, 40, "Usar Poção", BRANCO, CINZA, fonte_botao,"pot")
+        self.botao_atacar = Botao(30, 550, 80, 40, "Atacar", BRANCO, CINZA, fonte_botao,"bot")
 
     def Run(self):
+        botoes = [self.botao, self.botao_atacar]
         # Loop principal do jogo
         running = True
         clock = pygame.time.Clock()
@@ -61,8 +63,12 @@ class Tela:
                     elif event.key == pygame.K_d:
                         self.jogadorSprite.usar_pocao()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.botao.foi_clicado(event.pos):
-                        self.jogadorSprite.usar_pocao()  # Verifica se o botão foi clicado
+                    for botao in botoes:
+                        if botao.foi_clicado(event.pos):
+                            if botao.id == "pot":
+                                self.jogadorSprite.usar_pocao()
+                            elif botao.id == "bot":
+                                self.jogadorSprite.usar_pocao()
 
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
@@ -89,7 +95,9 @@ class Tela:
             self.inimigoSprite.draw(self.screen)
             self.jogadorSprite.draw(self.screen)
 
-            self.botao.desenhar(self.screen)
+            for botao in botoes:
+                botao.desenhar(self.screen)
+
 
             pygame.display.flip()  # atualiza a tela
 

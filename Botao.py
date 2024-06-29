@@ -7,12 +7,13 @@ PRETO = (0, 0, 0)
 CINZA = (100, 100, 100)
 
 class Botao:
-    def __init__(self, x, y, largura, altura, texto, cor_base, cor_hover, fonte):
+    def __init__(self, x, y, largura, altura, texto, cor_base, cor_hover, fonte, id):
         self.rect = pygame.Rect(x, y, largura, altura)
         self.texto = texto
         self.cor_base = cor_base
         self.cor_hover = cor_hover
         self.fonte = fonte
+        self.id = id
 
     def desenhar(self, tela):
         mouse_pos = pygame.mouse.get_pos()
