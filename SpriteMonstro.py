@@ -32,8 +32,8 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
         largura_tela, altura_tela = 800, 600
-        self.rect.x = randint(20, largura_tela - self.rect.width)
-        self.rect.y = randint(20, altura_tela - self.rect.height)
+        self.rect.x = 150
+        self.rect.y = 450
         self.inimigo.vida = self.inimigo.vida_max
     
     def inimigo_vivo(self):
