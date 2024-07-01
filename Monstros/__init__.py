@@ -3,12 +3,13 @@ from random import choice
 from .Dragon import Dragon
 from .Lanceiro import Lanceiro
 from .Gosma import Gosma
+from .Demon import Demon
 
-__all__ = ["Inimigo", "Gosma", "Dragon", "Lanceiro"]
+__all__ = ["Inimigo", "Gosma", "Dragon", "Lanceiro", "Demon"]
 
 def inimigo_escolhido(jogador):
     inimigos_por_zona = [
-         [Dragon(), Gosma(), Lanceiro()],
+         [Dragon(), Gosma(), Lanceiro(), Demon()],
          # Adicione mais listas para outras zonas
     ]
     

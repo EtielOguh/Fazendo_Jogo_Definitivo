@@ -21,11 +21,14 @@ class Tela:
         self.largura, self.altura = 1280, 720
         self.screen = pygame.display.set_mode((self.largura, self.altura))
         pygame.display.set_caption("Jogo")
+        # Carregar a imagem de fundo
+        self.imagem_fundo = pygame.image.load("Fundo/Fundo.png")
+        self.imagem_fundo = pygame.transform.scale(self.imagem_fundo, (self.largura, self.altura))
         #Criando Jogador
         self.jogador = Jogador()
         self.inimigo = inimigo_escolhido(self.jogador) #nome, level, ataque, vida, vida_max
         # Criando um sprite
-        self.inimigoSprite = SpriteInimigo(self.inimigo)
+        self.inimigoSprite = SpriteInimigo(self.inimigo, self.jogador)
         self.jogadorSprite = SpriteJogador(self.jogador)
         # Criando um grupo de sprites e adicionando o sprite criado
         self.all_sprites = pygame.sprite.Group()
@@ -80,14 +83,14 @@ class Tela:
             if not self.inimigoSprite.alive():
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
                 self.jogadorSprite.ganhar_pocao()
-                self.inimigoSprite.respawn()
+                self.inimigoSprite.respawn(self.jogador)
                 self.all_sprites.add(self.inimigoSprite)
             
             if not self.jogadorSprite.jogador_vivo():
                 sys.exit()
             
             # Desenho na tela
-            self.screen.fill(BLACK)  # preenche a tela com a cor preta
+            self.screen.blit(self.imagem_fundo, (0, 0))  # preenche a tela com a cor preta
             self.all_sprites.draw(self.screen)  # desenha todos os sprites no grupo na tela
 
             self.jogadorSprite.exibir_dano(self.screen)
