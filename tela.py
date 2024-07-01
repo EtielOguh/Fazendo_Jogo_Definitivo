@@ -1,5 +1,7 @@
 import pygame
 import sys
+from Monstros import *
+from Monstros import inimigo_escolhido
 from SpriteJogador import *
 from Jogador import *
 from SpriteMonstro import *
@@ -16,12 +18,12 @@ class Tela:
         # Inicialização do Pygame
         pygame.init()
         # Configuração da tela
-        self.largura, self.altura = 800, 600
+        self.largura, self.altura = 1280, 720
         self.screen = pygame.display.set_mode((self.largura, self.altura))
         pygame.display.set_caption("Jogo")
         #Criando Jogador
         self.jogador = Jogador()
-        self.inimigo = Inimigo() #nome,vida,ataque,lvl
+        self.inimigo = inimigo_escolhido(self.jogador) #nome, level, ataque, vida, vida_max
         # Criando um sprite
         self.inimigoSprite = SpriteInimigo(self.inimigo)
         self.jogadorSprite = SpriteJogador(self.jogador)
@@ -33,8 +35,8 @@ class Tela:
         self.fonte2 = pygame.font.SysFont(None, 30)
         fonte_botao = pygame.font.SysFont(None, 20) 
         # Botões
-        self.botao = Botao(130, 550, 80, 40, "Usar Poção", BRANCO, CINZA, fonte_botao,"pot")
-        self.botao_atacar = Botao(30, 550, 80, 40, "Atacar", BRANCO, CINZA, fonte_botao,"bot")
+        self.botao = Botao(130, 670, 80, 40, "Usar Poção", BRANCO, CINZA, fonte_botao,"pot")
+        self.botao_atacar = Botao(30, 670, 80, 40, "Atacar", BRANCO, CINZA, fonte_botao,"bot")
 
     def Run(self):
         botoes = [self.botao, self.botao_atacar]
@@ -63,12 +65,13 @@ class Tela:
                     elif event.key == pygame.K_d:
                         self.jogadorSprite.usar_pocao()
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    distancia_ataque = 150
                     for botao in botoes:
                         if botao.foi_clicado(event.pos):
                             if botao.id == "pot":
                                 self.jogadorSprite.usar_pocao()
                             elif botao.id == "bot":
-                                self.jogadorSprite.usar_pocao()
+                                self.jogadorSprite.atacar(self.inimigoSprite, distancia_ataque)
 
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
@@ -78,6 +81,7 @@ class Tela:
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
                 self.inimigoSprite.respawn()
                 self.jogadorSprite.ganhar_pocao()
+                self.inimigo = inimigo_escolhido(self.jogador)
                 self.all_sprites.add(self.inimigoSprite)
             
             if not self.jogadorSprite.jogador_vivo():
@@ -106,16 +110,16 @@ class Tela:
         pygame.quit()
         sys.exit()
 
-    def desenhar_barra_experiencia(self):
+    def desenhar_barra_experiencia(self): # tem mais coisa que somente exp
         # Calcula a largura da barra de experiência proporcional à experiência atual do jogador
-        largura_barra = 100
+        largura_barra = 180
         proporcao_experiencia = self.jogador.experiencia / self.jogador.exp_para_proximo_lvl
         largura_atual = int(largura_barra * proporcao_experiencia)
 
         # Desenha a barra de fundo
-        pygame.draw.rect(self.screen, WHITE, (20, 20, largura_barra, 5))
+        pygame.draw.rect(self.screen, WHITE, (20, 40, largura_barra, 15))
         # Desenha a barra de experiência atual
-        pygame.draw.rect(self.screen, BLUE, (20, 20, largura_atual, 5))
+        pygame.draw.rect(self.screen, BLUE, (20, 40, largura_atual, 15))
 
         # Desenha o texto indicando a experiência atual e necessária para o próximo nível
         texto_exp = f"XP: {self.jogador.experiencia:.1f}/{self.jogador.exp_para_proximo_lvl:.1f}"
@@ -124,9 +128,9 @@ class Tela:
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
         texto_telalvl = self.fonte.render(texto_LVL, True, WHITE)
         texto_telapot = self.fonte2.render(texto_pot, True, WHITE)
-        self.screen.blit(texto_surface, (20, 30))
-        self.screen.blit(texto_telalvl, (125, 18))
-        self.screen.blit(texto_telapot, (700, 18))
+        self.screen.blit(texto_surface, (20, 58))
+        self.screen.blit(texto_telalvl, (210, 43))
+        self.screen.blit(texto_telapot, (1150, 18))
 
 if __name__ == "__main__":
     jogo = Tela()

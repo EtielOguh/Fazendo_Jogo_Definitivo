@@ -13,7 +13,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
     def __init__(self, inimigo):
         super().__init__()
         self.inimigo = inimigo
-        self.image = pygame.image.load('SpriteInimigo/Monstro.png')
+        self.image = pygame.image.load(inimigo.sprite_path)
         novo_tamanho = (60, 60)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
@@ -29,7 +29,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.ultimo_ataque = time.time()  # Tempo do último ataque
         self.intervalo_ataque = 0.5  # Intervalo entre ataques em segundos
         # Pega a instancia do inimigo criado
-        self.respawn()
+        #self.respawn()
     
     def respawn(self):
         largura_tela, altura_tela = 800, 600
