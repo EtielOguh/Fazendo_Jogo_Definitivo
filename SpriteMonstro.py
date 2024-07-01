@@ -1,5 +1,8 @@
 import pygame
 from Inimigo import *
+from SpriteInimigo import *
+from Monstros import *
+from Monstros import inimigo_escolhido
 import os
 import time
 import math

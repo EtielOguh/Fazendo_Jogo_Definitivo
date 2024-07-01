@@ -79,9 +79,8 @@ class Tela:
 
             if not self.inimigoSprite.alive():
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
-                self.inimigoSprite.respawn()
                 self.jogadorSprite.ganhar_pocao()
-                self.inimigo = inimigo_escolhido(self.jogador)
+                self.inimigoSprite.respawn()
                 self.all_sprites.add(self.inimigoSprite)
             
             if not self.jogadorSprite.jogador_vivo():
