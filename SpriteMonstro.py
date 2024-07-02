@@ -22,7 +22,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.dano_recebido = 0
         self.tempo_dano = 0
         self.ultimo_ataque = time.time()  # Tempo do último ataque
-        self.intervalo_ataque = 0.5  # Intervalo entre ataques em segundos
+        self.intervalo_ataque = 1  # Intervalo entre ataques em segundos
 
     def respawn(self, jogador):
         # Escolhe um novo inimigo

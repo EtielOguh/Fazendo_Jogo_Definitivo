@@ -153,3 +153,8 @@ class SpriteJogador(pygame.sprite.Sprite):
             texto_surface = fonte.render(texto_dano, True, (VERMELHO))
             tela.blit(texto_surface, (self.rect.x, self.rect.y - 30))
             self.tempo_dano -= 3
+
+    def ganharDinheiro(self):
+        dinheiro = 50
+        self.jogador.dinheiro += dinheiro
+        print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")
