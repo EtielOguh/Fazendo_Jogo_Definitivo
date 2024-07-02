@@ -141,12 +141,10 @@ class SpriteJogador(pygame.sprite.Sprite):
             print(Fore.GREEN + 'Você recebeu uma poção!')
     
     def usar_pocao(self):
+        vida_curada = 40
         if self.jogador.pocao_vida > 0:
             self.jogador.pocao_vida -= 1
-            self.jogador.vida = min(self.jogador.vida + 40, self.jogador.vida_max)
-            print(f'{self.jogador.nome} usou uma poção e restaurou sua vida para {self.jogador.vida}.')
-        else:
-            print(f'{self.jogador.nome} não tem poções disponíveis.')
+            self.jogador.vida = min(self.jogador.vida + vida_curada, self.jogador.vida_max)
 
     def exibir_dano(self, tela):
         if self.tempo_dano > 0:

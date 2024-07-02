@@ -1,5 +1,8 @@
 import pygame
 from Inimigo import *
+from SpriteInimigo import *
+from Monstros import *
+from Monstros import inimigo_escolhido
 import os
 import time
 import math
@@ -10,31 +13,27 @@ VERDE = (0,255,0)
 VERMELHO = (255,0,0)
 
 class SpriteInimigo(pygame.sprite.Sprite):
-    def __init__(self, inimigo):
+    def __init__(self, inimigo, jogador):
         super().__init__()
         self.inimigo = inimigo
-        self.image = pygame.image.load('SpriteInimigo/Monstro.png')
-        novo_tamanho = (60, 60)
-        self.image = pygame.transform.scale(self.image, novo_tamanho)
-        self.rect = self.image.get_rect()
-        largura_tela, altura_tela = 800, 600    
-        self.pos_x = randint(0, largura_tela - self.rect.width)
-        self.pos_y = randint(0, altura_tela - self.rect.height)
-        self.rect.topleft = (self.pos_x, self.pos_y)
+        self.respawn(jogador)  # Inicializa o inimigo ao criar a instância
         self.distancia_minima = 90
         self.velocidade = 2
         self.dano_recebido = 0
         self.tempo_dano = 0
-        self.inimigo.vida = self.inimigo.vida_max
         self.ultimo_ataque = time.time()  # Tempo do último ataque
         self.intervalo_ataque = 0.5  # Intervalo entre ataques em segundos
-        # Pega a instancia do inimigo criado
-        self.respawn()
-    
-    def respawn(self):
+
+    def respawn(self, jogador):
+        # Escolhe um novo inimigo
+        self.inimigo = inimigo_escolhido(jogador)
+        self.image = pygame.image.load(self.inimigo.sprite_path)
+        novo_tamanho = (80, 80)
+        self.image = pygame.transform.scale(self.image, novo_tamanho)
+        self.rect = self.image.get_rect()
         largura_tela, altura_tela = 800, 600
-        self.rect.x = randint(20, largura_tela - self.rect.width)
-        self.rect.y = randint(20, altura_tela - self.rect.height)
+        self.rect.x = 150
+        self.rect.y = 450
         self.inimigo.vida = self.inimigo.vida_max
     
     def inimigo_vivo(self):
