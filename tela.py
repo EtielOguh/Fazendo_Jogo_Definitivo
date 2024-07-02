@@ -27,7 +27,7 @@ class Tela:
         self.imagem_fundo = pygame.transform.scale(self.imagem_fundo, (self.largura, self.altura))
         #Criando Jogador
         self.jogador = Jogador()
-        self.inimigo = inimigo_escolhido(self.jogador) #nome, level, ataque, vida, vida_max
+        self.inimigo = inimigo_escolhido(self.jogador)
         # Criando um sprite
         self.inimigoSprite = SpriteInimigo(self.inimigo, self.jogador)
         self.jogadorSprite = SpriteJogador(self.jogador)
@@ -73,9 +73,12 @@ class Tela:
                     for botao in botoes:
                         if botao.foi_clicado(event.pos):
                             if botao.id == "zona":
-                                if self.jogadorSprite.jogador.zona != 2:
-                                    self.jogadorSprite.jogador.zona += 1
-                                    self.inimigoSprite.respawn(self.jogador)
+                                custo = 150
+                                if self.jogadorSprite.jogador.dinheiro >= custo:
+                                    self.jogadorSprite.jogador.dinheiro -= custo
+                                    if self.jogadorSprite.jogador.zona != 2:
+                                        self.jogadorSprite.jogador.zona += 1
+                                        self.inimigoSprite.respawn(self.jogador)
                             elif botao.id == "zona1":
                                 if self.jogadorSprite.jogador.zona > 1:
                                     self.jogadorSprite.jogador.zona -= 1
@@ -85,8 +88,8 @@ class Tela:
             # Atualizações
             self.all_sprites.update()
 
-            if not self.inimigoSprite.alive():
-                self.jogadorSprite.ganharDinheiro()
+            if not self.inimigoSprite.inimigo_vivo():
+                self.jogadorSprite.ganharDinheiro(self.inimigo)
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
                 self.jogadorSprite.ganhar_pocao()
                 self.inimigoSprite.respawn(self.jogador)

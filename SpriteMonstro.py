@@ -28,7 +28,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
         # Escolhe um novo inimigo
         self.inimigo = inimigo_escolhido(jogador)
         self.image = pygame.image.load(self.inimigo.sprite_path)
-        novo_tamanho = (80, 80)
+        novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
         largura_tela, altura_tela = 800, 600

@@ -17,7 +17,7 @@ class SpriteJogador(pygame.sprite.Sprite):
         super().__init__()
         self.jogador = jogador
         self.image = pygame.image.load('AtaqueJogador/1.png') 
-        novo_tamanho = (100 , 81)
+        novo_tamanho = (150 , 121.5)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect() # Superfície do sprite (retângulo inicial)  # Obtém o retângulo associado à imagem
         self.pos_x_anterior = self.rect.x  # Variável para armazenar posição anterior
@@ -113,7 +113,7 @@ class SpriteJogador(pygame.sprite.Sprite):
         print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
     
     def ganhar_experiencia(self, inimigo):
-        experiencia_recebida = 10 * inimigo.level
+        experiencia_recebida = inimigo.level * 15
         self.jogador.experiencia += experiencia_recebida
         print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
 
@@ -154,7 +154,7 @@ class SpriteJogador(pygame.sprite.Sprite):
             tela.blit(texto_surface, (self.rect.x, self.rect.y - 30))
             self.tempo_dano -= 3
 
-    def ganharDinheiro(self):
-        dinheiro = 50
+    def ganharDinheiro(self, inimigo):
+        dinheiro = inimigo.level * 10
         self.jogador.dinheiro += dinheiro
         print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")
