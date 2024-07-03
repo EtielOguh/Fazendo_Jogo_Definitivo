@@ -6,7 +6,7 @@ class Jogador:
     def __init__(self):
         #Informações jogador
         self.nome = 'Knight'
-        self.zona = 1 
+        self.zona = 1
         self.vida = 200
         self.vida_max = 200
         self.ataque = 30
@@ -14,6 +14,7 @@ class Jogador:
         self.experiencia = 0
         self.exp_para_proximo_lvl = 50
         self.pocao_vida = 0
+        self.dinheiro = 0
         self.inventario = []
         self.mao = []
         #Posição inicial
@@ -43,8 +44,4 @@ class Jogador:
             print(f'{item.nome} foi equipado!')
         else:
             print("Índice inválido!")
-    
-    def selecionarZona(jogador):
-        zona = int(input(Fore.LIGHTBLUE_EX + 'Selecione uma zona:' + '\n1: lvl 3-5 \n2: lvl 6-8 \n4: lvl 9-11 \n5: lvl 12-13 \nSua escolha: '))
-        jogador.zona = zona
 

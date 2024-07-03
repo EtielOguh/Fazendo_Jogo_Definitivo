@@ -22,26 +22,24 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.dano_recebido = 0
         self.tempo_dano = 0
         self.ultimo_ataque = time.time()  # Tempo do último ataque
-        self.intervalo_ataque = 0.5  # Intervalo entre ataques em segundos
+        self.intervalo_ataque = 1  # Intervalo entre ataques em segundos
 
     def respawn(self, jogador):
         # Escolhe um novo inimigo
         self.inimigo = inimigo_escolhido(jogador)
         self.image = pygame.image.load(self.inimigo.sprite_path)
-        novo_tamanho = (80, 80)
+        novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
-        largura_tela, altura_tela = 800, 600
+        #largura_tela, altura_tela = 800, 600
         self.rect.x = 150
         self.rect.y = 450
-        self.inimigo.vida = self.inimigo.vida_max
     
     def inimigo_vivo(self):
         return self.inimigo.vida > 0
     
     def update(self):
-        if self.inimigo.vida <= 0:
-            self.kill()
+        pass
 
     def draw (self, tela):
         tela.blit(self.image, self.rect.topleft)

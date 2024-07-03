@@ -17,7 +17,7 @@ class SpriteJogador(pygame.sprite.Sprite):
         super().__init__()
         self.jogador = jogador
         self.image = pygame.image.load('AtaqueJogador/1.png') 
-        novo_tamanho = (100 , 81)
+        novo_tamanho = (150 , 121.5)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect() # Superfície do sprite (retângulo inicial)  # Obtém o retângulo associado à imagem
         self.pos_x_anterior = self.rect.x  # Variável para armazenar posição anterior
@@ -113,7 +113,7 @@ class SpriteJogador(pygame.sprite.Sprite):
         print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
     
     def ganhar_experiencia(self, inimigo):
-        experiencia_recebida = 10 * inimigo.level
+        experiencia_recebida = inimigo.level *10
         self.jogador.experiencia += experiencia_recebida
         print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
 
@@ -121,7 +121,6 @@ class SpriteJogador(pygame.sprite.Sprite):
             self.jogador.experiencia -= self.jogador.exp_para_proximo_lvl
             self.subir_nivel()
             self.resetar_player()
-            print(f"Vida: {self.jogador.vida} \nAtaque: {self.jogador.ataque}")
 
     def atacar(self, inimigo_sprite, distancia_ataque):
         if self.checar_proximidade(inimigo_sprite, distancia_ataque):
@@ -134,14 +133,13 @@ class SpriteJogador(pygame.sprite.Sprite):
     def ganhar_pocao(self):
         chance_de_drop = 0.50
         if random.random() > chance_de_drop:
-            print(Fore.RED + '\nNenhum item foi dropado.')
             return None
         else:
             self.jogador.pocao_vida += 1
             print(Fore.GREEN + 'Você recebeu uma poção!')
     
     def usar_pocao(self):
-        vida_curada = 40
+        vida_curada = 50
         if self.jogador.pocao_vida > 0:
             self.jogador.pocao_vida -= 1
             self.jogador.vida = min(self.jogador.vida + vida_curada, self.jogador.vida_max)
@@ -153,3 +151,8 @@ class SpriteJogador(pygame.sprite.Sprite):
             texto_surface = fonte.render(texto_dano, True, (VERMELHO))
             tela.blit(texto_surface, (self.rect.x, self.rect.y - 30))
             self.tempo_dano -= 3
+
+    def ganharDinheiro(self, inimigo):
+        dinheiro = inimigo.level * 10
+        self.jogador.dinheiro += dinheiro
+        print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")
