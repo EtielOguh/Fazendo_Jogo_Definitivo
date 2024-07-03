@@ -73,7 +73,7 @@ class Tela:
                     for botao in botoes:
                         if botao.foi_clicado(event.pos):
                             if botao.id == "zona":
-                                custo = 150
+                                custo = 0
                                 if self.jogadorSprite.jogador.dinheiro >= custo:
                                     self.jogadorSprite.jogador.dinheiro -= custo
                                     if self.jogadorSprite.jogador.zona != 2:
@@ -90,10 +90,9 @@ class Tela:
 
             if not self.inimigoSprite.inimigo_vivo():
                 self.jogadorSprite.ganharDinheiro(self.inimigo)
-                self.jogadorSprite.ganhar_experiencia(self.inimigo)
                 self.jogadorSprite.ganhar_pocao()
+                self.jogadorSprite.ganhar_experiencia(inimigo_escolhido(self.jogador))
                 self.inimigoSprite.respawn(self.jogador)
-                self.all_sprites.add(self.inimigoSprite)
                 
             if not self.jogadorSprite.jogador_vivo():
                 sys.exit()

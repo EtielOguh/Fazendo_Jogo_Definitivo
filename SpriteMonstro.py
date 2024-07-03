@@ -31,17 +31,15 @@ class SpriteInimigo(pygame.sprite.Sprite):
         novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
-        largura_tela, altura_tela = 800, 600
+        #largura_tela, altura_tela = 800, 600
         self.rect.x = 150
         self.rect.y = 450
-        self.inimigo.vida = self.inimigo.vida_max
     
     def inimigo_vivo(self):
         return self.inimigo.vida > 0
     
     def update(self):
-        if self.inimigo.vida <= 0:
-            self.kill()
+        pass
 
     def draw (self, tela):
         tela.blit(self.image, self.rect.topleft)
