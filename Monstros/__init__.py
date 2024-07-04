@@ -21,4 +21,5 @@ def inimigo_escolhido(jogador):
         raise ValueError(f"Zona inválida: {jogador.zona}")
     
     inimigo_escolhido = choice(inimigos_disponiveis)
+    print (f'Inimigo: {inimigo_escolhido.nome}, Dano: {inimigo_escolhido.ataque}, Lvl: {inimigo_escolhido.level}')
     return inimigo_escolhido

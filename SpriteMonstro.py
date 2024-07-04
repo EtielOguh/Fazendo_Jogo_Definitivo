@@ -16,6 +16,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
     def __init__(self, inimigo, jogador):
         super().__init__()
         self.inimigo = inimigo
+        self.jogador = jogador
         self.respawn(jogador)  # Inicializa o inimigo ao criar a instância
         self.distancia_minima = 90
         self.velocidade = 2
