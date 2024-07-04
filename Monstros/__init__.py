@@ -8,7 +8,7 @@ from .Curandeira import Curandeira
 
 __all__ = ["Inimigo", "Gosma", "Dragon", "Lanceiro", "Demon", "Curandeira"]
 
-def inimigo_escolhido(jogador):
+def escolherInimigo(jogador):
     inimigos_por_zona = [
          [Gosma(), Lanceiro(), Curandeira()],
          [Dragon(), Demon(), Curandeira()]

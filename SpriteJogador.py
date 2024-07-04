@@ -113,7 +113,7 @@ class SpriteJogador(pygame.sprite.Sprite):
         #print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
     
     def ganhar_experiencia(self, inimigo):
-        experiencia_recebida = inimigo.level * 10
+        experiencia_recebida = inimigo.level
         self.jogador.experiencia += experiencia_recebida
         #print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
 
@@ -155,4 +155,4 @@ class SpriteJogador(pygame.sprite.Sprite):
     def ganharDinheiro(self, inimigo):
         dinheiro = inimigo.level * 10
         self.jogador.dinheiro += dinheiro
-        print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")
+        #print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")

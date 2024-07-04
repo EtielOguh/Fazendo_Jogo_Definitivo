@@ -2,7 +2,7 @@ import pygame
 from Inimigo import *
 from SpriteInimigo import *
 from Monstros import *
-from Monstros import inimigo_escolhido
+from Monstros import escolherInimigo
 import os
 import time
 import math
@@ -27,7 +27,7 @@ class SpriteInimigo(pygame.sprite.Sprite):
 
     def respawn(self, jogador):
         # Escolhe um novo inimigo
-        self.inimigo = inimigo_escolhido(jogador)
+        self.inimigo = escolherInimigo(jogador)
         self.image = pygame.image.load(self.inimigo.sprite_path)
         novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
