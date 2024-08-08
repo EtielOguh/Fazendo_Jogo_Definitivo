@@ -2,7 +2,7 @@ import pygame
 from Inimigo import *
 from SpriteInimigo import *
 from Monstros import *
-from Monstros import inimigo_escolhido
+from Monstros import escolherInimigo
 import os
 import time
 import math
@@ -16,22 +16,36 @@ class SpriteInimigo(pygame.sprite.Sprite):
     def __init__(self, inimigo, jogador):
         super().__init__()
         self.inimigo = inimigo
-        self.respawn(jogador)  # Inicializa o inimigo ao criar a instância
+        self.jogador = jogador
         self.distancia_minima = 90
         self.velocidade = 2
         self.dano_recebido = 0
         self.tempo_dano = 0
         self.ultimo_ataque = time.time()  # Tempo do último ataque
         self.intervalo_ataque = 1  # Intervalo entre ataques em segundos
+        
+        if self.inimigo:
+            # Carrega a imagem do inimigo e define o rect
+            self.image = pygame.image.load(self.inimigo.sprite_path)
+            novo_tamanho = (140, 140)
+            self.image = pygame.transform.scale(self.image, novo_tamanho)
+            self.rect = self.image.get_rect()
+
+            # Define a posição inicial
+            self.rect.x = 150
+            self.rect.y = 450
+
 
     def respawn(self, jogador):
+
         # Escolhe um novo inimigo
-        self.inimigo = inimigo_escolhido(jogador)
+        self.inimigo = escolherInimigo(jogador)
         self.image = pygame.image.load(self.inimigo.sprite_path)
         novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
         self.rect = self.image.get_rect()
-        #largura_tela, altura_tela = 800, 600
+
+        #Define a posição incial
         self.rect.x = 150
         self.rect.y = 450
     

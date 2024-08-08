@@ -110,12 +110,12 @@ class SpriteJogador(pygame.sprite.Sprite):
         self.jogador.exp_para_proximo_lvl *= 1.5
         self.jogador.ataque += 3
         self.jogador.vida_max += 20
-        print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
+        #print(f"{self.jogador.nome} subiu para o nível {self.jogador.level}!")
     
     def ganhar_experiencia(self, inimigo):
-        experiencia_recebida = inimigo.level *10
+        experiencia_recebida = inimigo.level*10
         self.jogador.experiencia += experiencia_recebida
-        print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
+        print(f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência! o inimigo é lvl {inimigo.level} e dano {inimigo.ataque} e vida max {inimigo.vida_max}")
 
         while self.jogador.experiencia >= self.jogador.exp_para_proximo_lvl:
             self.jogador.experiencia -= self.jogador.exp_para_proximo_lvl
@@ -136,7 +136,7 @@ class SpriteJogador(pygame.sprite.Sprite):
             return None
         else:
             self.jogador.pocao_vida += 1
-            print(Fore.GREEN + 'Você recebeu uma poção!')
+            #print(Fore.GREEN + 'Você recebeu uma poção!')
     
     def usar_pocao(self):
         vida_curada = 50
@@ -155,4 +155,4 @@ class SpriteJogador(pygame.sprite.Sprite):
     def ganharDinheiro(self, inimigo):
         dinheiro = inimigo.level * 10
         self.jogador.dinheiro += dinheiro
-        print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")
+        #print (f"Jogador Ganhou {self.jogador.dinheiro} dinheiros")

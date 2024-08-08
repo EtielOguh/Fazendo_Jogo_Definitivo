@@ -1,7 +1,7 @@
 import pygame
 import sys
 from Monstros import *
-from Monstros import inimigo_escolhido
+from Monstros import escolherInimigo
 from SpriteJogador import *
 from Jogador import *
 from SpriteMonstro import *
@@ -27,7 +27,7 @@ class Tela:
         self.imagem_fundo = pygame.transform.scale(self.imagem_fundo, (self.largura, self.altura))
         #Criando Jogador
         self.jogador = Jogador()
-        self.inimigo = inimigo_escolhido(self.jogador)
+        self.inimigo = escolherInimigo(self.jogador)
         # Criando um sprite
         self.inimigoSprite = SpriteInimigo(self.inimigo, self.jogador)
         self.jogadorSprite = SpriteJogador(self.jogador)
@@ -83,7 +83,7 @@ class Tela:
                                 if self.jogadorSprite.jogador.zona > 1:
                                     self.jogadorSprite.jogador.zona -= 1
                                     self.inimigoSprite.respawn(self.jogador)
-
+                                    
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
             self.all_sprites.update()
@@ -91,7 +91,7 @@ class Tela:
             if not self.inimigoSprite.inimigo_vivo():
                 self.jogadorSprite.ganharDinheiro(self.inimigo)
                 self.jogadorSprite.ganhar_pocao()
-                self.jogadorSprite.ganhar_experiencia(inimigo_escolhido(self.jogador))
+                self.jogadorSprite.ganhar_experiencia(self.inimigo)
                 self.inimigoSprite.respawn(self.jogador)
                 
             if not self.jogadorSprite.jogador_vivo():
