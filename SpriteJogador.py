@@ -115,7 +115,7 @@ class SpriteJogador(pygame.sprite.Sprite):
     def ganhar_experiencia(self, inimigo):
         experiencia_recebida = inimigo.level*10
         self.jogador.experiencia += experiencia_recebida
-        #print(Fore.BLUE + f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência!")
+        print(f"{self.jogador.nome} ganhou {experiencia_recebida} pontos de experiência! o inimigo é lvl {inimigo.level} e dano {inimigo.ataque} e vida max {inimigo.vida_max}")
 
         while self.jogador.experiencia >= self.jogador.exp_para_proximo_lvl:
             self.jogador.experiencia -= self.jogador.exp_para_proximo_lvl

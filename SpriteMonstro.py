@@ -23,16 +23,18 @@ class SpriteInimigo(pygame.sprite.Sprite):
         self.tempo_dano = 0
         self.ultimo_ataque = time.time()  # Tempo do último ataque
         self.intervalo_ataque = 1  # Intervalo entre ataques em segundos
+        
+        if self.inimigo:
+            # Carrega a imagem do inimigo e define o rect
+            self.image = pygame.image.load(self.inimigo.sprite_path)
+            novo_tamanho = (140, 140)
+            self.image = pygame.transform.scale(self.image, novo_tamanho)
+            self.rect = self.image.get_rect()
 
-        #Carregando a imagem do inimigo e definindo Rect
-        self.image = pygame.image.load(self.inimigo.sprite_path)
-        novo_tamanho = (140,140)
-        self.image = pygame.transform.scale(self.image, novo_tamanho)
-        self.rect = self.image.get_rect()
+            # Define a posição inicial
+            self.rect.x = 150
+            self.rect.y = 450
 
-        #Definindo a posição inicial
-        self.rect.x = 150
-        self.rect.y = 450
 
     def respawn(self, jogador):
 
