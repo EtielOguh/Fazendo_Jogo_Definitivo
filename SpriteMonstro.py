@@ -13,10 +13,9 @@ VERDE = (0,255,0)
 VERMELHO = (255,0,0)
 
 class SpriteInimigo(pygame.sprite.Sprite):
-    def __init__(self, inimigo, jogador):
+    def __init__(self, inimigo):
         super().__init__()
         self.inimigo = inimigo
-        self.jogador = jogador
         self.distancia_minima = 90
         self.velocidade = 2
         self.dano_recebido = 0

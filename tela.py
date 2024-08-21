@@ -29,7 +29,7 @@ class Tela:
         self.jogador = Jogador()
         self.inimigo = escolherInimigo(self.jogador)
         # Criando um sprite
-        self.inimigoSprite = SpriteInimigo(self.inimigo, self.jogador)
+        self.inimigoSprite = SpriteInimigo(self.inimigo)
         self.jogadorSprite = SpriteJogador(self.jogador)
         # Criando um grupo de sprites e adicionando o sprite criado
         self.all_sprites = pygame.sprite.Group()
@@ -137,16 +137,25 @@ class Tela:
         texto_pot = f"POT: {self.jogador.pocao_vida}"
         texto_Dinheiro = f"DINHEIRO: {self.jogador.dinheiro}"
         texto_telaZonaJogador = f"Zona Atual: {self.jogador.zona}"
+        texto_telaNivelMonstro = f"Nivel Monstro: {self.inimigo.nivel}"
+        texto_telaDanoMonstro = f"Dano Monstro: {self.inimigo.ataque}"
+        texto_telaVidaMonstro = f"Vida Monstro: {self.inimigo.vida}"
         texto_surface = self.fonte.render(texto_exp, True, WHITE)
         texto_telalvl = self.fonte.render(texto_LVL, True, WHITE)
         texto_telapot = self.fonte2.render(texto_pot, True, BLACK)
         texto_telazona = self.fonte2.render(texto_telaZonaJogador, True, BLACK)
         texto_telaDinheiro = self.fonte2.render(texto_Dinheiro, True, BLACK)
+        texto_telaNivel = self.fonte2.render(texto_telaNivelMonstro, True, WHITE)
+        texto_telaDano = self.fonte2.render(texto_telaDanoMonstro, True, WHITE)
+        texto_telaVida = self.fonte2.render(texto_telaVidaMonstro, True, WHITE)
         self.screen.blit(texto_surface, (20, 58))
         self.screen.blit(texto_telalvl, (210, 43))
         self.screen.blit(texto_telapot, (1150, 18))
         self.screen.blit(texto_telazona, (900, 18))
         self.screen.blit(texto_telaDinheiro, (700, 18))
+        self.screen.blit(texto_telaNivel, (300, 18))
+        self.screen.blit(texto_telaDano, (300,38))
+        self.screen.blit(texto_telaVida, (300, 60))
 
 if __name__ == "__main__":
     jogo = Tela()
