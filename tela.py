@@ -78,11 +78,13 @@ class Tela:
                                     self.jogadorSprite.jogador.dinheiro -= custo
                                     if self.jogadorSprite.jogador.zona != 2:
                                         self.jogadorSprite.jogador.zona += 1
-                                        self.inimigoSprite.respawn(self.jogador)
+                                        self.inimigo = escolherInimigo(self.jogador)
+                                        self.inimigoSprite.respawn(self.inimigo)
                             elif botao.id == "zona1":
                                 if self.jogadorSprite.jogador.zona > 1:
                                     self.jogadorSprite.jogador.zona -= 1
-                                    self.inimigoSprite.respawn(self.jogador)
+                                    self.inimigo = escolherInimigo(self.jogador)
+                                    self.inimigoSprite.respawn(self.inimigo)
                                     
             self.inimigoSprite.seguir_jogador(self.jogadorSprite, 90)
             # Atualizações
@@ -92,7 +94,8 @@ class Tela:
                 self.jogadorSprite.ganharDinheiro(self.inimigo)
                 self.jogadorSprite.ganhar_pocao()
                 self.jogadorSprite.ganhar_experiencia(self.inimigo)
-                self.inimigoSprite.respawn(self.jogador)
+                self.inimigo = escolherInimigo(self.jogador)
+                self.inimigoSprite.respawn(self.inimigo)
                 
             if not self.jogadorSprite.jogador_vivo():
                 sys.exit()

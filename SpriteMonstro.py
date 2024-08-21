@@ -35,10 +35,10 @@ class SpriteInimigo(pygame.sprite.Sprite):
             self.rect.y = 450
 
 
-    def respawn(self, jogador):
+    def respawn(self, inimigo):
 
         # Escolhe um novo inimigo
-        self.inimigo = escolherInimigo(jogador)
+        self.inimigo = inimigo
         self.image = pygame.image.load(self.inimigo.sprite_path)
         novo_tamanho = (140, 140)
         self.image = pygame.transform.scale(self.image, novo_tamanho)
